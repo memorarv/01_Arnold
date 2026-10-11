@@ -35,9 +35,44 @@
       font-size: 16px;
       z-index: 2;
     }
+
+    #replay {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  padding: 16px 24px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  background: white;
+  color: black;
+  cursor: pointer;
+}
   </style>
 </head>
 
+<button id="replay">▶ Reproducir nuevamente</button>
+
+<script>
+  const video = document.getElementById("video");
+  const replay = document.getElementById("replay");
+
+  replay.style.display = "none";
+
+  video.addEventListener("ended", () => {
+    replay.style.display = "block";
+  });
+
+  replay.addEventListener("click", () => {
+    replay.style.display = "none";
+    video.currentTime = 0;
+    video.play();
+  });
+</script>
+  
 <body>
   <video id="video" autoplay muted playsinline>
     <source src="video.mp4" type="video/mp4">
