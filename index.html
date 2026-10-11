@@ -1,67 +1,66 @@
+
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1">
+  <title>Video QR</title>
 
-    <meta name="viewport"
-          content="width=device-width,
-                   initial-scale=1.0,
-                   maximum-scale=1.0,
-                   user-scalable=no">
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      overflow: hidden;
+    }
 
-    <title>Video QR</title>
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: black;
+    }
 
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background: #000;
-            overflow: hidden;
-        }
-
-        video {
-            position: fixed;
-            top: 0;
-            left: 0;
-
-            width: 100vw;
-            height: 100vh;
-
-            object-fit: contain;
-
-            background: #000;
-        }
-    </style>
+    #sound {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 14px 22px;
+      border: 0;
+      border-radius: 30px;
+      background: white;
+      color: black;
+      font-size: 16px;
+      z-index: 2;
+    }
+  </style>
 </head>
 
 <body>
-
-<video
-    autoplay
-    muted
-    playsinline
-    controls="false">
-
+  <video id="video" autoplay muted playsinline>
     <source src="video.mp4" type="video/mp4">
+  </video>
 
-    Tu navegador no soporta video HTML5.
+  <button id="sound">Activar sonido 🔊</button>
 
-</video>
+  <script>
+    const video = document.getElementById("video");
+    const button = document.getElementById("sound");
 
-<script>
+    button.addEventListener("click", async () => {
+      video.muted = false;
 
-const video = document.querySelector("video");
-
-video.addEventListener("loadedmetadata", () => {
-    video.play().catch(() => {
-        console.log("Autoplay bloqueado por el navegador");
+      try {
+        await video.play();
+        button.style.display = "none";
+      } catch (error) {
+        video.muted = true;
+        button.textContent = "Toca para activar el sonido";
+      }
     });
-});
-
-</script>
-
+  </script>
 </body>
 </html>
