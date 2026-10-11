@@ -3,8 +3,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Video QR</title>
 
   <style>
@@ -23,7 +22,7 @@
       background: black;
     }
 
-    #sound {
+    #sound, #replay {
       position: fixed;
       bottom: 25px;
       left: 50%;
@@ -35,12 +34,25 @@
       color: black;
       font-size: 16px;
       z-index: 2;
+      cursor: pointer;
+    }
+    #sound {
+      bottom: 25px;
+    }
+
+    #replay {
+      display: none;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 12px;
+      padding: 16px 24px;
+      font-size: 18px;
     }
   </style>
 </head>
 
 <body>
-  <video id="video" autoplay muted playsinline loop>
+  <video id="video" autoplay muted playsinline>
     <source src="video.mp4" type="video/mp4">
   </video>
 
