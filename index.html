@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -61,18 +60,18 @@
 
   <script>
     const video = document.getElementById("video");
-    const button = document.getElementById("sound");
+    const buttons = document.getElementById("sound");
     const replayButton = document.getElementById("replay");
 
-    button.addEventListener("click", async () => {
+    buttons.addEventListener("click", async () => {
       video.muted = false;
 
       try {
         await video.play();
-        button.style.display = "none";
+        buttons.style.display = "none";
       } catch (error) {
         video.muted = true;
-        button.textContent = "Toca para activar el sonido";
+        buttons.textContent = "Toca para activar el sonido";
       }
     });
   </script>
