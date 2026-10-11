@@ -60,18 +60,18 @@
 
   <script>
     const video = document.getElementById("video");
-    const buttons = document.getElementById("sound");
+    const soundbutton = document.getElementById("sound");
     const replayButton = document.getElementById("replay");
 
-    buttons.addEventListener("click", async () => {
+    soundbutton.addEventListener("click", async () => {
       video.muted = false;
 
       try {
         await video.play();
-        buttons.style.display = "none";
+        soundbutton.style.display = "none";
       } catch (error) {
         video.muted = true;
-        buttons.textContent = "Toca para activar el sonido";
+        soundbutton.textContent = "Toca para activar el sonido";
       }
     });
   </script>
