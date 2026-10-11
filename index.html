@@ -1,100 +1,67 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Video QR</title>
+    <meta charset="UTF-8">
 
-  <style>
-    html, body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      background: black;
-      overflow: hidden;
-    }
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0,
+                   maximum-scale=1.0,
+                   user-scalable=no">
 
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background: black;
-    }
+    <title>Video QR</title>
 
-    #sound, #replay {
-      position: fixed;
-      left: 50%;
-      transform: translateX(-50%);
-      padding: 14px 22px;
-      border: none;
-      border-radius: 30px;
-      background: white;
-      color: black;
-      font-size: 16px;
-      z-index: 10;
-      cursor: pointer;
-    }
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            overflow: hidden;
+        }
 
-    #sound {
-      bottom: 25px;
-    }
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
 
-    #replay {
-      display: none;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      border-radius: 12px;
-      padding: 16px 24px;
-      font-size: 18px;
-    }
-  </style>
+            width: 100vw;
+            height: 100vh;
+
+            object-fit: contain;
+
+            background: #000;
+        }
+    </style>
 </head>
 
 <body>
-  <video id="video" autoplay muted playsinline>
+
+<video
+    autoplay
+    muted
+    playsinline
+    controls="false">
+
     <source src="video.mp4" type="video/mp4">
-    Tu navegador no puede reproducir este video.
-  </video>
 
-  <button id="sound">Activar sonido 🔊</button>
-  <button id="replay">▶ Reproducir nuevamente</button>
+    Tu navegador no soporta video HTML5.
 
-  <script>
-    const video = document.getElementById("video");
-    const soundButton = document.getElementById("sound");
-    const replayButton = document.getElementById("replay");
+</video>
 
-    // Activar sonido al pulsar el botón
-    soundButton.addEventListener("click", async () => {
-      video.muted = false;
+<script>
 
-      try {
-        await video.play();
-        soundButton.style.display = "none";
-      } catch (error) {
-        video.muted = true;
-        soundButton.textContent = "Toca para activar el sonido 🔊";
-      }
+const video = document.querySelector("video");
+
+video.addEventListener("loadedmetadata", () => {
+    video.play().catch(() => {
+        console.log("Autoplay bloqueado por el navegador");
     });
+});
 
-    // Mostrar el botón de repetición al finalizar
-    video.addEventListener("ended", () => {
-      replayButton.style.display = "block";
-      soundButton.style.display = "none";
-    });
+</script>
 
-    // Reproducir nuevamente solo cuando la persona lo solicite
-    replayButton.addEventListener("click", async () => {
-      replayButton.style.display = "none";
-
-      try {
-        video.currentTime = 0;
-        await video.play();
-      } catch (error) {
-        replayButton.style.display = "block";
-      }
-    });
-  </script>
 </body>
 </html>
-```
