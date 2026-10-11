@@ -69,10 +69,10 @@
 
       try {
         await video.play();
-        button.style.display = "none";
+        soundbutton.style.display = "none";
       } catch (error) {
         video.muted = true;
-        button.textContent = "Toca para activar el sonido";
+        soundbutton.textContent = "Toca para activar el sonido";
       }
     });
   </script>
