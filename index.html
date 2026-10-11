@@ -2,8 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Video QR</title>
 
   <style>
@@ -22,79 +21,80 @@
       background: black;
     }
 
-    #sound {
+    #sound, #replay {
       position: fixed;
-      bottom: 25px;
       left: 50%;
       transform: translateX(-50%);
       padding: 14px 22px;
-      border: 0;
+      border: none;
       border-radius: 30px;
       background: white;
       color: black;
       font-size: 16px;
-      z-index: 2;
+      z-index: 10;
+      cursor: pointer;
+    }
+
+    #sound {
+      bottom: 25px;
     }
 
     #replay {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
-  padding: 16px 24px;
-  font-size: 18px;
-  border: none;
-  border-radius: 10px;
-  background: white;
-  color: black;
-  cursor: pointer;
-}
+      display: none;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 12px;
+      padding: 16px 24px;
+      font-size: 18px;
+    }
   </style>
 </head>
 
-<button id="replay">▶ Reproducir nuevamente</button>
-
-<script>
-  const video = document.getElementById("video");
-  const replay = document.getElementById("replay");
-
-  replay.style.display = "none";
-
-  video.addEventListener("ended", () => {
-    replay.style.display = "block";
-  });
-
-  replay.addEventListener("click", () => {
-    replay.style.display = "none";
-    video.currentTime = 0;
-    video.play();
-  });
-</script>
-  
 <body>
   <video id="video" autoplay muted playsinline>
     <source src="video.mp4" type="video/mp4">
+    Tu navegador no puede reproducir este video.
   </video>
 
   <button id="sound">Activar sonido 🔊</button>
+  <button id="replay">▶ Reproducir nuevamente</button>
 
   <script>
     const video = document.getElementById("video");
-    const button = document.getElementById("sound");
+    const soundButton = document.getElementById("sound");
+    const replayButton = document.getElementById("replay");
 
-    button.addEventListener("click", async () => {
+    // Activar sonido al pulsar el botón
+    soundButton.addEventListener("click", async () => {
       video.muted = false;
 
       try {
         await video.play();
-        button.style.display = "none";
+        soundButton.style.display = "none";
       } catch (error) {
         video.muted = true;
-        button.textContent = "Toca para activar el sonido";
+        soundButton.textContent = "Toca para activar el sonido 🔊";
+      }
+    });
+
+    // Mostrar el botón de repetición al finalizar
+    video.addEventListener("ended", () => {
+      replayButton.style.display = "block";
+      soundButton.style.display = "none";
+    });
+
+    // Reproducir nuevamente solo cuando la persona lo solicite
+    replayButton.addEventListener("click", async () => {
+      replayButton.style.display = "none";
+
+      try {
+        video.currentTime = 0;
+        await video.play();
+      } catch (error) {
+        replayButton.style.display = "block";
       }
     });
   </script>
 </body>
 </html>
+```
