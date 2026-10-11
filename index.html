@@ -57,12 +57,14 @@
   </video>
 
   <button id="sound">Activar sonido 🔊</button>
+  <button id="replay">▶ Reproducir nuevamente</button>
 
   <script>
     const video = document.getElementById("video");
-    const button = document.getElementById("sound");
+    const soundbutton = document.getElementById("sound");
+    const replayButton = document.getElementById("replay");
 
-    button.addEventListener("click", async () => {
+    soundbutton.addEventListener("click", async () => {
       video.muted = false;
 
       try {
